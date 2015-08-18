@@ -1,0 +1,89 @@
+<resources>
+    <string name="app_name">PyS</string>
+
+    <string name="content_authority">com.sergio.example.owngcm</string>
+
+    <string name="downstream_api_key">AIzaSyAGd_GCovnmEyYOGyMO1Qc6QpPJNM5JNSE</string>
+    <string name="topic_global">/topics/global</string>
+
+    <string name="gcm_send_message">Chat Activo con Mi amor&#8230;</string>
+    <string name="registering_message">Conectando con mi amor&#8230;</string>
+    <string name="token_error_message">An error occurred while either fetching the InstanceID token,
+        sending the fetched token to the server or subscribing to the PubSub topic. Please try
+        running the sample again.</string>
+    <string name="logs">Conversaciones:</string>
+
+    <string name="editextHintMessage">Enviame algo :)</string>
+    <string name="textButtonSend">Enviar</string>
+
+    <string name="clear_logs">Borrar</string>
+    <string name="message_dialog_clear_logs">¿Borrar mensajes del canal?\n\n
+        ATENCION:\n
+        No podran ser recuperados.</string>
+    <string name="menu_settings">Configuracion</string>
+    <string name="menu_view_database">Database</string>
+
+    <string name="ok">Aceptar</string>
+    <string name="cancel">Cancelar</string>
+
+    <string name="pref_user_name_label">Nombre de Usuario</string>
+    <string name="pref_user_name_key">plus_name</string>
+    <string name="pref_user_default">Anonim@</string>
+
+    <!-- Menus item NavDrawer to open on screen [CHAR_LIMIT=20] -->
+    <string name="navdrawer_item_chats_active">Chats Activos</string>
+    <string name="navdrawer_item_add_chat">Crear</string>
+    <string name="navdrawer_item_explore">Explorar</string>
+    <string name="navdrawer_item_people_ive_met">Conocidos</string>
+    <string name="navdrawer_item_photo_gallery">Fotos</string>
+    <string name="navdrawer_item_settings">Configuracion</string>
+    <string name="navdrawer_item_signin">Entrar</string>
+
+    <!-- Title for an error message that appears when the user tries to use the app without
+    a Google account configured on their device. -->
+    <string name="google_account_required_title">Cuenta de Google Requerida</string>
+
+    <!-- Error message that shows when the user tries to use the app without a Google account
+    configured on their device. -->
+    <string name="api_error_title">Error</string>
+    <string name="google_account_required_message">Para usar esta applicacion, debes tener al menos una Cuenta de Google en su dispositivo.</string>
+    <string name="api_error_message">Existe un problema en el servidor. Intentelo mas tarde.</string>
+    <string name="close">Close</string>
+
+    <!-- Label on a button that, when clicked, allows user to add an account to the device. -->
+    <string name="add_account">Añadir Cuenta</string>
+
+    <!-- Button of a popup that shows up when the user has no Google account registered in the
+    device. The popup says that the user needs to have at least one Google account registered in the
+    device to be able to use the app. [CHAR_LIMIT=20] -->
+    <string name="not_now">Ahora No</string>
+
+    <!-- Mensaje que se muestra en FragmentChat despues de removeAllViewsInLayout(); CAMBIAR -->
+    <string name="warning_create_many_chats">Usted acaba de crear un canal.\n
+        No puede crear otro seguido</string>
+
+    <!-- Product Tour -->
+    <string name="welcom_head_01">Accede al chat libre mas rapido y interesante!!</string>
+    <string name="welcom_content_01">Crea un canal y espera a que conacten contigo.</string>
+    <string name="welcom_head_02">Comparte con tus amigos o mantente en el anonimato</string>
+    <string name="welcom_content_02">Escribe, pregunta, planea.....</string>
+    <string name="welcom_head_03">Todos los mensajes son automaticamente borrados una vez que se reciben</string>
+    <string name="welcom_content_03">A traves del buscador encuentra a gente lo mas cercana a ti.</string>
+    <string name="welcom_head_04">Podras compartir fotos con quien quieras</string>
+    <string name="welcom_content_04">Opcion Idiomas. Aprende un idioma a la vez que enseñas el tuyo</string>
+
+
+    <!-- Mensaje de los SnackBars -->
+    <string name="snackbar_upload_new_chat">Nuevo chat Creado con Exito</string>
+    <string name="snackbar_upload_new_chat_action">Actualizar</string>
+    <string name="snackbar_message_failed">Envio de mensaje fallido. </string>
+    <string name="snackbar_wait_init_chat">Chat no Activo. Esperar.</string>
+    <string name="snackbar_error_loader_conferences">Existe un problema con el servidor. Intentelo mas tarde.</string>
+
+    <!-- xzvTourist -->
+    <string name="empty_list">No ha creado ningun canal!</string>
+
+    <!-- Registrar conference -->
+    <string name="button_register">Suscribirse</string>
+    <string name="button_unregister">Salir del chat</string>
+</resources>

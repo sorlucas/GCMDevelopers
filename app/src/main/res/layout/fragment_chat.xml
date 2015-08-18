@@ -1,0 +1,94 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".MainActivity"
+    android:background="@drawable/background_chat"
+    android:theme="@style/Base.Theme.AppCompat.Light">
+
+    <TextView android:text="@string/registering_message" android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/informationTextView"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/registrationProgressBar"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine"
+        android:ems="10"
+        android:id="@+id/editTextMessage"
+        android:hint= "@string/editextHintMessage"
+        android:background="@drawable/abc_popup_background_mtrl_mult"
+        android:maxLines="4"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@+id/buttonSend"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/textButtonSend"
+        android:id="@+id/buttonSend"
+        android:layout_alignTop="@+id/editTextMessage"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:enabled="false"/>
+
+    <LinearLayout
+        android:id="@+id/logs_layout"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:layout_gravity="bottom"
+        android:background="@drawable/abc_popup_background_mtrl_mult"
+        android:layout_alignRight="@+id/registrationProgressBar"
+        android:layout_alignEnd="@+id/registrationProgressBar"
+        android:layout_above="@+id/editTextMessage"
+        android:layout_below="@+id/imageViewIconStatus">
+
+        <ScrollView
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="false"
+            android:focusable="false"
+            android:id="@+id/scrollViewChat">
+
+            <TextView
+                android:id="@+id/logs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textIsSelectable="true"
+                android:textSize="10sp"
+                android:paddingTop="4dp"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"/>
+
+        </ScrollView>
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:id="@+id/imageViewIconStatus"
+        android:longClickable="false"
+        android:src="@drawable/offline_icon"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:contentDescription="status" />
+
+</RelativeLayout>

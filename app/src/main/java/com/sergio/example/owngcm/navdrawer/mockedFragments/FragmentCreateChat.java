@@ -197,7 +197,8 @@ public class FragmentCreateChat extends Fragment implements
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == getActivity().RESULT_OK
-                && (requestCode == ChooserType.REQUEST_PICK_PICTURE || requestCode == ChooserType.REQUEST_CAPTURE_PICTURE)) {
+                && (requestCode == ChooserType.REQUEST_PICK_PICTURE
+                || requestCode == ChooserType.REQUEST_CAPTURE_PICTURE)) {
             if (imageChooserManager == null) {
                 reinitializeImageChooser();
             }

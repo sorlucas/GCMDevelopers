@@ -78,10 +78,17 @@ public class StorageUtils {
         return map;
     }
 
-    public static String uploadPhotoToBucket (String bucketName, String filePath)
+    /**
+     * Upload file (photo) from file path to bucket in GoogleCloudStorage. Create manually url PUBLIC OBJECT
+     * @param bucketName bucket name where the file is placed.
+     * @param filePath device path where the file is hosted.
+     * @return urlPath public object "https://storage.googleapis.com/" + Config.BUCKET_PHOTOS_COVER + "/" + file.getName()
+     * @throws Exception
+     */
+    public static String uploadPhotoFromPathToBucket (String bucketName, String filePath)
         throws Exception {
 
-        // TODO: Change to true to useCustomMetadata
+        // TODO: useCustomMetadata
         Boolean useCustomMetadata = false;
 
         File file = new File(filePath);
@@ -108,7 +115,9 @@ public class StorageUtils {
                     .setContentDisposition("attachment");
         }
 
-        Storage.Objects.Insert insertObject = mStorageApiHandler.objects().insert(bucketName, objectMetadata, mediaContent);
+
+        Storage.Objects.Insert insertObject = mStorageApiHandler.objects()
+                .insert(bucketName, objectMetadata, mediaContent);
 
         if (!useCustomMetadata) {
             // If you don't provide metadata, you will have specify the object
@@ -190,6 +199,12 @@ public class StorageUtils {
         return mStorageApiHandler;
     }
 
+    /**
+     * Get file "client_secre.p12" create on developer console to access Storage Service
+     * @param context context where is running activity
+     * @return a temporar file client_secret.p12
+     * @throws IOException
+     */
     private static File getTempPkc12File(Context context) throws IOException {
 
         // client_secret.p12 export from google API console

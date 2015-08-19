@@ -28,6 +28,7 @@ import com.sergio.example.owngcm.utils.StringUtils;
 
 import java.util.List;
 
+import static com.sergio.example.owngcm.utils.LogUtils.LOGD;
 import static com.sergio.example.owngcm.utils.LogUtils.makeLogTag;
 
 /**
@@ -38,16 +39,19 @@ public class FragmentListChats extends Fragment implements
 
     private static final String TAG = makeLogTag(FragmentListChats.class);
 
-    private ForecastAdapter mAdapter;
+    // Specific launch type sync to SyncAdapter
+    private String mTypeModeSync;
 
+    private ForecastAdapter mAdapter;
     private AttractionsRecyclerView mRecyclerView;
 
+    // Deteremine actual position RecycleView. When rotate savedInstances
     private int mPosition = RecyclerView.INVALID_TYPE;
     private static final String SELECTED_KEY = "selected_position";
 
-    private int mContentTopClearance = 0;
 
     private static final int FORECAST_LOADER = 0;
+
     // For the forecast view we're showing only a small subset of the stored data. Specify the columns we need.
     private static final String[] FORECAST_COLUMNS = {
             RouteContract.RouteEntry.TABLE_NAME + "." + RouteContract.RouteEntry._ID,
@@ -81,16 +85,19 @@ public class FragmentListChats extends Fragment implements
     public static final int COL_TOPIC_GCM = 11;
     public static final int COL_REGISTERED = 12;
 
-
-    private String mTypeModeSync;
     /**
-     * Create a new instance of FragmentListChats, providing "typeMode"
-     * as an argument.
+     * Create a new instance of FragmentListChats, providing "typeMode" of sync as an argument.
+     * @param typeModeSync SYNC_MODE_SEARCH,
+     *                     SYNC_MODE_ATTENDES_CHATS
+     *                     or SYNC_MODE_REGISTRATION_CHAT
+     * @return new Instance FragmentListChats with arguments
      */
     public static FragmentListChats newInstance(String typeModeSync) {
+        LOGD(TAG, "FragmentListChats.newInstance(typeModeSync)");
+
         FragmentListChats f = new FragmentListChats();
 
-        // Supply num input as an argument.
+        // Put type SYNC_MDE_TYPE as an argument.
         Bundle args = new Bundle();
         args.putString(SyncAdapter.SYNC_MODE_TYPE, typeModeSync);
         f.setArguments(args);
@@ -105,16 +112,14 @@ public class FragmentListChats extends Fragment implements
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mTypeModeSync = getArguments() != null ? getArguments().getString(SyncAdapter.SYNC_MODE_TYPE) : null;
+        //TODO: Add this line in order for this fragment to handle menu events.
+        setHasOptionsMenu(true);
+
+        mTypeModeSync = getArguments() != null
+                ? getArguments().getString(SyncAdapter.SYNC_MODE_TYPE) : null;
+
+        // TODO: cambiar initializeSyncAdapter (Temporizador) para BaseActivity. Sincronizar todo en newely
         SyncAdapter.initializeSyncAdapter(getActivity(), mTypeModeSync, null);
-    }
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
-        // Authorization check successful, get conferences.
-        getLoaderManager().initLoader(FORECAST_LOADER, null, this);
     }
 
     @Override
@@ -123,14 +128,21 @@ public class FragmentListChats extends Fragment implements
         mRecyclerView = (AttractionsRecyclerView) root.findViewById(R.id.sessions_collection_view);
         mRecyclerView.setEmptyView(root.findViewById(android.R.id.empty));
         mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), getResources().getInteger(R.integer.list_columns) ));
-
-        //TODO: DELETE WHEN COLLECTIONVIEW
-        final TypedArray xmlArgs = getActivity().obtainStyledAttributes(null,
-                R.styleable.CollectionView, 0, 0);
-        mContentTopClearance = xmlArgs.getDimensionPixelSize(
-                R.styleable.CollectionView_contentTopClearance, 0);
+        mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), getResources().getInteger(R.integer.list_columns)));
         return root;
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        // Init Loader to catch information from contentProvider
+        getLoaderManager().initLoader(FORECAST_LOADER, null, this);
+        super.onActivityCreated(savedInstanceState);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
     }
 
     @Override
@@ -170,14 +182,11 @@ public class FragmentListChats extends Fragment implements
             // to, do so now.
             mRecyclerView.smoothScrollToPosition(mPosition);
         }
-
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        // When tablets rotate, the currently selected list item needs to be saved.
-        // When no item is selected, mPosition will be set to Listview.INVALID_POSITION,
-        // so check for that before storing.
+        // TODO: When tablets rotate, the currently selected list item needs to be saved.
         if (mPosition != RecyclerView.INVALID_TYPE) {
             outState.putInt(SELECTED_KEY, mPosition);
         }
@@ -188,7 +197,6 @@ public class FragmentListChats extends Fragment implements
     public void onLoaderReset(Loader<Cursor> loader) {
         mAdapter.swapCursor(null);
     }
-
 
     public void reload() {
         getLoaderManager().restartLoader(FORECAST_LOADER, null, this).startLoading();

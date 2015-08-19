@@ -41,7 +41,7 @@ public class UploadRouteService extends IntentService {
     protected void onHandleIntent(Intent intent) {
         LOGD(TAG, "Service Started!");
 
-        // Datos para usar el receiver
+        // Receiver statement
         final ResultReceiver receiver = intent.getParcelableExtra("receiver");
         Bundle bundle = new Bundle();
 
@@ -52,14 +52,14 @@ public class UploadRouteService extends IntentService {
             receiver.send(STATUS_RUNNING, Bundle.EMPTY);
 
             try {
-                //TODO: ADD photo to cloud storage and get url
+                // Add photo route to datastore
                 StorageUtils.build(getApplicationContext());
-                // CHANGE IMPLEMENTATION to insert different buckets. Framework
-                String urlPublicLink = StorageUtils.uploadPhotoToBucket(Config.BUCKET_PHOTOS_COVER, intent.getStringExtra(RouteContract.RouteEntry.COLUMN_URL_CHAT_COVER));
-
-                ConferenceUtils.build(getApplicationContext());
+                String urlPublicLink = StorageUtils.uploadPhotoFromPathToBucket(
+                        Config.BUCKET_PHOTOS_COVER,
+                        intent.getStringExtra(RouteContract.RouteEntry.COLUMN_URL_CHAT_COVER));
 
                 // Add route to datatastore with urlPublicLInk saved on storage
+                ConferenceUtils.build(getApplicationContext());
                 Conference newConference = ConferenceUtils.createConference(getConferenceForm(intent, urlPublicLink));
 
                 /* Sending result back to activity */

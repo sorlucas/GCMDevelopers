@@ -37,7 +37,6 @@ public class RegisterConferenceLoader extends AsyncTaskLoader<Boolean> {
     @Override
     public Boolean loadInBackground() {
 
-        //TODO: creo que tenemos demasiados build
         ConferenceUtils.build(mContext);
         try {
             try {

@@ -22,6 +22,7 @@ import com.sergio.example.owngcm.utils.UIUtils;
 
 import java.util.List;
 
+import static com.sergio.example.owngcm.utils.LogUtils.LOGD;
 import static com.sergio.example.owngcm.utils.LogUtils.LOGE;
 import static com.sergio.example.owngcm.utils.LogUtils.makeLogTag;
 
@@ -51,7 +52,9 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
     public void onPerformSync(Account account, Bundle extras, String authority, ContentProviderClient provider, SyncResult syncResult) {
         Log.d(TAG, "Starting sync");
 
-        // TODO: FUTURO CAMBIO DE las conferencias que loader con GCM. mas eficiente. ahora se cargan todas desde ahora
+        // TODO: FUTURO CAMBIO DE las conferencias que loader con GCM. mas eficiente.
+        // Ahora sincronizamos el Sync Adapter con acciones del usuario: abrir applicacion....cuando
+        // se ha subido la ruta, implementacion mecanica de sincronizacion. MAL
 
         String typeSync = extras.getString(SYNC_MODE_TYPE);
 
@@ -102,6 +105,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 
     }
 
+    // TODO: FUTURO: initializeSyncAdapter (Inicializacion!!)
     //Metodos para configuracion de la Sync
     public static void initializeSyncAdapter(Context context, String syncMode, Bundle extras) {
 
@@ -120,6 +124,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
                 bundle.putString(RouteContract.RouteEntry.COLUMN_WEBSAFE_KEY,extras.getString(RouteContract.RouteEntry.COLUMN_WEBSAFE_KEY));
                 bundle.putInt(RouteContract.RouteEntry.COLUMN_REGISTERED, extras.getInt(RouteContract.RouteEntry.COLUMN_REGISTERED));
                 break;
+
         }
         /*
          * Since we've created an account
@@ -139,10 +144,14 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
          */
         syncImmediately(context, bundle);
     }
+
     /**
      * Helper method to schedule the sync adapter periodic execution
      */
     public static void configurePeriodicSync(Context context, int syncInterval, int flexTime) {
+
+        LOGD(TAG, "configurePeriodicSync");
+
         Account account = AccountUtils.getActiveAccount(context);
         String authority = context.getString(R.string.content_authority);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
@@ -157,13 +166,14 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
                     authority, new Bundle(), syncInterval);
         }
     }
+
     /**
      * Helper method to have the sync adapter sync immediately
      * @param context The context used to access the account service
      */
     public static void syncImmediately(Context context,Bundle bundle) {
 
-        Log.d("CaminadoSyncAdapter", "syncImmediately");
+        LOGD(TAG, "syncImmediately");
 
         Account account = AccountUtils.getActiveAccount(context);
         bundle.putBoolean(ContentResolver.SYNC_EXTRAS_EXPEDITED, true);

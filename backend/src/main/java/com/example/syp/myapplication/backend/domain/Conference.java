@@ -28,7 +28,7 @@ public class Conference {
 
     private static final String DEFAULT_CITY = "Global";
 
-    private static final List<String> DEFAULT_TOPICS = ImmutableList.of("Default", "Topic");
+    private static final List<String> DEFAULT_TOPICS = ImmutableList.of("Not specified", "Global");
 
     /**
      * The id for the datastore key.

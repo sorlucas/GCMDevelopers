@@ -20,6 +20,7 @@ import com.sergio.example.owngcm.utils.DatabaseHelperUtils;
 import com.sergio.example.owngcm.utils.StringUtils;
 import com.sergio.example.owngcm.utils.UIUtils;
 
+import java.util.IllegalFormatException;
 import java.util.List;
 
 import static com.sergio.example.owngcm.utils.LogUtils.LOGD;
@@ -55,13 +56,12 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
         // TODO: FUTURO CAMBIO DE las conferencias que loader con GCM. mas eficiente.
         // Ahora sincronizamos el Sync Adapter con acciones del usuario: abrir applicacion....cuando
         // se ha subido la ruta, implementacion mecanica de sincronizacion. MAL
-
         String typeSync = extras.getString(SYNC_MODE_TYPE);
 
         if (typeSync != null) {
             List<DecoratedConference> decoratedConferences = null;
 
-            // Catch type sync
+            // Download data from serverd dependen of  type sync
             switch (typeSync) {
                 case SYNC_MODE_SEARCH:
                     SearchConferenceLoader searchLoader = new SearchConferenceLoader(getContext());
@@ -78,40 +78,31 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
                     Boolean sucefully = registrationConferenceLoader.loadInBackground();
                     break;
                 default:
+
                     LOGE(TAG, "Error Type Sync Mode");
                     break;
             }
 
             // Solucion para soluciona problema de incomapitbilidad null&0 cuando no hay ninguna conferencia
-            int size;
-            if (decoratedConferences == null){
-                size = 0;
-            } else {
-                size = decoratedConferences.size();
-            }
-
-            if ( size > 0){
+            int size = (decoratedConferences == null ? 0 : decoratedConferences.size());
+            if (size > 0){
                 //Create route values today an insert in database
                 int rowsInserted = DatabaseHelperUtils.addRoutesToSQLite(getContext(), decoratedConferences);
-                Log.d(TAG, "Sync Complete. " + rowsInserted + " new Routes Inserted");
                 if(rowsInserted > 0){
                     // notifyRoute();
                 }
+                Log.d(TAG, "Sync Complete. " + rowsInserted + " new Routes Inserted");
             }
         } else {
             LOGE(TAG, "No specifing any Type Sync");
-        }
-
-
-    }
+        }    }
 
     // TODO: FUTURO: initializeSyncAdapter (Inicializacion!!)
     //Metodos para configuracion de la Sync
     public static void initializeSyncAdapter(Context context, String syncMode, Bundle extras) {
+        Log.d(TAG, "initializeSyncAdapter. -> syncMode: " + syncMode);
 
         Bundle bundle = new Bundle();
-
-        Log.d(TAG, "initializeSyncAdapter");
         switch (syncMode){
             case SYNC_MODE_SEARCH:
                 bundle.putString(SYNC_MODE_TYPE,SYNC_MODE_SEARCH);
@@ -124,11 +115,11 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
                 bundle.putString(RouteContract.RouteEntry.COLUMN_WEBSAFE_KEY,extras.getString(RouteContract.RouteEntry.COLUMN_WEBSAFE_KEY));
                 bundle.putInt(RouteContract.RouteEntry.COLUMN_REGISTERED, extras.getInt(RouteContract.RouteEntry.COLUMN_REGISTERED));
                 break;
+            default: throw new IllegalArgumentException("unreachable SYNC_MODE_TYPE");
 
         }
-        /*
-         * Since we've created an account
-         */
+
+        // TODO: Implement to initializeSyncAdapter
         //SyncAdapter.configurePeriodicSync(context, SYNC_INTERVAL, SYNC_FLEXTIME);
 
         /*

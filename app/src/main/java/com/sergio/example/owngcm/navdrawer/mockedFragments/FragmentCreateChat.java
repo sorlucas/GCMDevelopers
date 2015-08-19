@@ -6,14 +6,18 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v7.internal.widget.AdapterViewCompat;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.kbeanie.imagechooser.api.ChooserType;
@@ -24,22 +28,29 @@ import com.sergio.example.owngcm.BaseActivity;
 import com.sergio.example.owngcm.R;
 import com.sergio.example.owngcm.provider.RouteContract;
 import com.sergio.example.owngcm.service.UploadRouteService;
+
 import com.sergio.example.owngcm.utils.UIUtils;
 
 import java.io.File;
+import java.util.SimpleTimeZone;
+
 import it.neokree.materialnavigationdrawer.elements.MaterialSection;
 
+import static com.sergio.example.owngcm.utils.LogUtils.LOGD;
+import static com.sergio.example.owngcm.utils.LogUtils.makeLogTag;
 /**
  * Created by syp on 12/08/15.
  */
 public class FragmentCreateChat extends Fragment implements
         ImageChooserListener {
 
+    private static final String TAG = makeLogTag(BaseActivity.class);
+
     //Declarate UI Rerferences
     private ViewGroup mRoot;  // To removeAllViews()
     private EditText mChatName;
     private EditText mDescription;
-    private EditText mTopics;
+    private String mTopics;
     private EditText mCity;
     private EditText mMaxAttendes;
 
@@ -64,9 +75,27 @@ public class FragmentCreateChat extends Fragment implements
 
         mChatName = (EditText) mRoot.findViewById(R.id.editTextChatName);
         mDescription = (EditText) mRoot.findViewById(R.id.editTextDescription);
-        mTopics = (EditText) mRoot.findViewById(R.id.editTextTopics);
         mCity = (EditText) mRoot.findViewById(R.id.editTextCity);
         mMaxAttendes = (EditText) mRoot.findViewById(R.id.editTextMaxAttendes);
+
+        //Create an display Spinner
+        Spinner spinner = (Spinner) mRoot.findViewById(R.id.spinnerTopics);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                mTopics = (String) parent.getItemAtPosition(position);
+                LOGD(TAG, "Topic selected in spinner" + mTopics);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(),
+                R.array.topic_spinner, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
 
         // Photos
         Button buttonTakePicture = (Button) mRoot.findViewById(R.id.buttonTakePicture);
@@ -138,7 +167,7 @@ public class FragmentCreateChat extends Fragment implements
         intent.putExtra("receiver", ((BaseActivity) getActivity()).getmReceiver());
         intent.putExtra(RouteContract.RouteEntry.COLUMN_NAME_ROUTE, mChatName.getText().toString());
         intent.putExtra(RouteContract.RouteEntry.COLUMN_DESCRIPTION, mDescription.getText().toString());
-        intent.putExtra(RouteContract.RouteEntry.COLUMN_TOPICS, mTopics.getText().toString());
+        intent.putExtra(RouteContract.RouteEntry.COLUMN_TOPICS, mTopics);
         intent.putExtra(RouteContract.RouteEntry.COLUMN_CITY_NAME_INIT, mCity.getText().toString());
         intent.putExtra(RouteContract.RouteEntry.COLUMN_MAX_ATTENDEES, mMaxAttendes.getText().toString());
         intent.putExtra(RouteContract.RouteEntry.COLUMN_URL_CHAT_COVER, urlPhotoPath);

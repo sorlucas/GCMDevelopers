@@ -86,4 +86,16 @@
     <!-- Registrar conference -->
     <string name="button_register">Suscribirse</string>
     <string name="button_unregister">Salir del chat</string>
+
+    <!-- Spinners Theme Chats -->
+    <string-array name="topic_spinner">
+        <item>Not specified</item>
+        <item>Animales</item>
+        <item>Conocer Gente</item>
+        <item>Didactico</item>
+        <item>Expertos</item>
+        <item>Idiomas</item>
+        <item>Neptune</item>
+        <item>Tutorias</item>
+    </string-array>
 </resources>

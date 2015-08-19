@@ -33,15 +33,9 @@ public class RouteProvider extends ContentProvider {
                     "." + RouteContract.RouteEntry._ID + " = ? ";
 
 
-    /*  This UriMatcher willmatch each URI to the ROUTE, ROUTE_WITH_ID, ROUTE_SHORT_ASC,
-        and LOCATION integer constants defined above.     */
+    /*  This UriMatcher willmatch each URI to the ROUTE, ROUTE_WITH_ID, ROUTE_SHORT_ASC,  */
     public static UriMatcher buildUriMatcher() {
-        // I know what you're thinking.  Why create a UriMatcher when you can use regular
-        // expressions instead?  Because you're not crazy, that's why.
 
-        // All paths added to the UriMatcher have a corresponding code to return when a match is
-        // found.  The code passed into the constructor represents the code to return for the root
-        // URI.  It's common to use NO_MATCH as the code for this case.
         final UriMatcher matcher = new UriMatcher(UriMatcher.NO_MATCH);
         final String authority = RouteContract.CONTENT_AUTHORITY;
 
@@ -76,8 +70,6 @@ public class RouteProvider extends ContentProvider {
     public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs,
                         String sortOrder) {
 
-        // Here's the switch statement that, given a URI, will determine what kind of request it is,
-        // and query the database accordingly.
         Cursor retCursor;
         switch (sUriMatcher.match(uri)) {
             case ROUTE: {
@@ -112,23 +104,18 @@ public class RouteProvider extends ContentProvider {
         return retCursor;
     }
 
-    /*
-        Student: Add the ability to insert Locations to the implementation of this function.
-     */
     @Override
     public Uri insert(Uri uri, ContentValues values) {
         final SQLiteDatabase db = mOpenHelper.getWritableDatabase();
-        final int match = sUriMatcher.match(uri);
         Uri returnUri;
 
-        switch (match) {
+        switch (sUriMatcher.match(uri)) {
             case ROUTE: {
                 long _id = db.insertWithOnConflict(RouteContract.RouteEntry.TABLE_NAME, null, values, SQLiteDatabase.CONFLICT_IGNORE);
                 if (_id == -1){
                     _id = db.update(RouteContract.RouteEntry.TABLE_NAME, values, RouteContract.RouteEntry._ID + " = ?", new String[]{values.get(RouteContract.RouteEntry._ID).toString()});
                 }
                 returnUri = RouteContract.RouteEntry.buildRouteUri(_id);
-
                 break;
             }
             default:
@@ -143,8 +130,7 @@ public class RouteProvider extends ContentProvider {
     @Override
     public int bulkInsert(Uri uri, ContentValues[] values) {
         final SQLiteDatabase db = mOpenHelper.getWritableDatabase();
-        final int match = sUriMatcher.match(uri);
-        switch (match) {
+        switch (sUriMatcher.match(uri)) {
             case ROUTE:
                 db.beginTransaction();
                 int returnCount = 0;
@@ -171,15 +157,15 @@ public class RouteProvider extends ContentProvider {
     @Override
     public int delete(Uri uri, String selection, String[] selectionArgs) {
         final SQLiteDatabase db = mOpenHelper.getWritableDatabase();
-        final int match = sUriMatcher.match(uri);
         int rowsDeleted;
-        // this makes delete all rows return the number of rows deleted
+
+        // selection this makes delete all rows
         if ( null == selection ) selection = "1";
         else {
             selection = selection + " = ?";
 
         }
-        switch (match) {
+        switch (sUriMatcher.match(uri)) {
             case ROUTE:
                 rowsDeleted = db.delete(
                         RouteContract.RouteEntry.TABLE_NAME, selection, selectionArgs);
@@ -195,13 +181,11 @@ public class RouteProvider extends ContentProvider {
     }
 
     @Override
-    public int update(
-            Uri uri, ContentValues values, String selection, String[] selectionArgs) {
+    public int update(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
         final SQLiteDatabase db = mOpenHelper.getWritableDatabase();
-        final int match = sUriMatcher.match(uri);
         int rowsUpdated;
 
-        switch (match) {
+        switch (sUriMatcher.match(uri)) {
             case ROUTE:
                 rowsUpdated = db.update(RouteContract.RouteEntry.TABLE_NAME, values, selection,
                         selectionArgs);

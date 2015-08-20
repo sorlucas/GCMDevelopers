@@ -83,7 +83,9 @@ public class FragmentCreateChat extends Fragment implements
                     return true;
                 }
             });
-        } else if (view instanceof Spinner) {
+        } else if (view instanceof Spinner ||
+                view instanceof FloatingActionButton ||
+                view instanceof ImageButton ) {
             return;
         } else {
             view.setOnTouchListener(new View.OnTouchListener() {

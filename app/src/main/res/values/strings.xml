@@ -112,10 +112,10 @@
     </string-array>
 
     <!-- TextView's create Route -->
-    <string name="textView_name_Chat">Nombre Chat: </string>
-    <string name="editextView_hint_name_chat"> * Requerido * </string>
-    <string name="textView_description">Descripción: </string>
-    <string name="textView_topic">Tema: </string>
-    <string name="textView_location">Localización: </string>
-    <string name="textView_maxattendes">Participantes: </string>
+    <string name="editextview_name_chat">Nombre Chat: </string>
+    <string name="editextview_description">Descripción: </string>
+    <string name="textview_topic">Tema: </string>
+    <string name="editextview_location">Localización: </string>
+    <string name="textview_maxattendes">Participantes: </string>
+
 </resources>

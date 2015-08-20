@@ -17,12 +17,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <include layout="@layout/cardview_create_chat_add_photo"
-                android:layout_height="match_parent"
-                android:layout_width="match_parent" />
-
-
-            <include layout="@layout/cardview_create_chat_add_information"
+            <include layout="@layout/cardview_create_chat"
                 android:layout_height="match_parent"
                 android:layout_width="match_parent" />
         </LinearLayout>

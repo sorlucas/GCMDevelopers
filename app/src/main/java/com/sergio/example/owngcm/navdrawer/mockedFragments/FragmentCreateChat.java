@@ -15,10 +15,12 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.kbeanie.imagechooser.api.ChooserType;
 import com.kbeanie.imagechooser.api.ChosenImage;
@@ -73,12 +75,12 @@ public class FragmentCreateChat extends Fragment implements
 
         mRoot = (ViewGroup) inflater.inflate(R.layout.fragment_create_chat, container, false);
 
-        mChatName = (EditText) mRoot.findViewById(R.id.editTextChatName);
-        mDescription = (EditText) mRoot.findViewById(R.id.editTextDescription);
-        mCity = (EditText) mRoot.findViewById(R.id.editTextCity);
+        mChatName = (EditText) mRoot.findViewById(R.id.createChatName);
+        mDescription = (EditText) mRoot.findViewById(R.id.createDescription);
+        mCity = (EditText) mRoot.findViewById(R.id.createCity);
 
         //Create an display Spinner Topics
-        Spinner spinnerTopic = (Spinner) mRoot.findViewById(R.id.spinnerTopics);
+        Spinner spinnerTopic = (Spinner) mRoot.findViewById(R.id.createTopics);
         spinnerTopic.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -97,7 +99,7 @@ public class FragmentCreateChat extends Fragment implements
         spinnerTopic.setAdapter(adapterTopic);
 
         // Create an display Spinner MaxAttendes
-        Spinner spinnerMaxAttendes = (Spinner) mRoot.findViewById(R.id.spinnerMaxAttendes);
+        Spinner spinnerMaxAttendes = (Spinner) mRoot.findViewById(R.id.createMaxAttendes);
         spinnerMaxAttendes.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -116,7 +118,8 @@ public class FragmentCreateChat extends Fragment implements
         spinnerMaxAttendes.setAdapter(adapterMaxAttendes);
 
         // Photos
-        Button buttonTakePicture = (Button) mRoot.findViewById(R.id.buttonTakePicture);
+        imageViewThumbnail = (ImageView) mRoot.findViewById(R.id.createViewCover);
+        ImageButton buttonTakePicture = (ImageButton) mRoot.findViewById(R.id.createTakePicture);
         buttonTakePicture.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -124,7 +127,7 @@ public class FragmentCreateChat extends Fragment implements
                 takePicture();
             }
         });
-        Button buttonChooseImage = (Button) mRoot.findViewById(R.id.buttonChooseImage);
+        ImageButton buttonChooseImage = (ImageButton) mRoot.findViewById(R.id.buttonChooseImage);
         buttonChooseImage.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -132,19 +135,36 @@ public class FragmentCreateChat extends Fragment implements
                 chooseImage();
             }
         });
-        imageViewThumbnail = (ImageView) mRoot.findViewById(R.id.imageViewCover);
+        ImageButton buttonDeletePicture = (ImageButton) mRoot.findViewById(R.id.buttonDeletePhoto);
+        buttonDeletePicture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO: delete photo
+                Toast.makeText(getActivity(), "Futura implementacion: Borrar", Toast.LENGTH_LONG).show();
+            }
+        });
+
+
         pbar = (ProgressBar) mRoot.findViewById(R.id.progressBar);
         pbar.setVisibility(View.GONE);
 
         mButtonCreate = (FloatingActionButton) mRoot.findViewById(R.id.button_create);
-        mButtonCancel = (FloatingActionButton) mRoot.findViewById(R.id.button_cancel);
-
         mButtonCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 uploadRoute();
             }
         });
+        mButtonCancel = (FloatingActionButton) mRoot.findViewById(R.id.button_cancel);
+        mButtonCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO: Go ListChats
+                Toast.makeText(getActivity(), "Futura implementacion: Volver a lista", Toast.LENGTH_LONG).show();
+            }
+        });
+
+
 
         return mRoot;
     }

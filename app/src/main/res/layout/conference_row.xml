@@ -32,7 +32,7 @@
                 android:src="@drawable/empty_photo"
                 android:scaleType="centerCrop"
                 android:transitionName="image"
-                android:layout_alignBottom="@+id/descriptionView" />
+                android:layout_alignBottom="@+id/textDescription" />
             <TextView
                 android:id="@+id/overlaytext"
                 android:layout_width="@dimen/image_size"
@@ -55,7 +55,7 @@
                 android:layout_alignParentEnd="true" />
 
             <TextView
-                android:id="@+id/textViewTitleView"
+                android:id="@+id/textChatName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@id/imageRouteCover"
@@ -72,11 +72,11 @@
                 android:layout_toStartOf="@id/imageViewRegistered" />
 
             <TextView
-                android:id="@+id/descriptionView"
+                android:id="@+id/textDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/imageRouteCover"
-                android:layout_below="@+id/textViewTitleView"
+                android:layout_toRightOf="@id/imageRouteCover"
+                android:layout_below="@id/textChatName"
                 android:padding="@dimen/small_margin"
                 android:ellipsize="end"
                 android:maxLines="4"
@@ -95,7 +95,7 @@
                 style="?android:textAppearanceSmall"
                 android:gravity="end"
                 android:text="Robledillo de gata, 14 enero 1997"
-                android:layout_below="@+id/textViewOraganizerName"
+                android:layout_below="@id/textViewOraganizerName"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true" />
 
@@ -111,15 +111,15 @@
                 android:textColor="@android:color/secondary_text_light"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
-                android:layout_below="@+id/imageRouteCover" />
+                android:layout_below="@id/imageRouteCover" />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/imageViewRegisteredIcon"
-                android:layout_alignBottom="@+id/imageViewRegistered"
-                android:layout_toRightOf="@+id/textViewTitleView"
-                android:layout_toEndOf="@+id/textViewTitleView"
+                android:layout_alignBottom="@id/imageViewRegistered"
+                android:layout_toRightOf="@id/textChatName"
+                android:layout_toEndOf="@id/textChatName"
                 android:src="@drawable/ic_person_add_black_24dp" />
 
         </RelativeLayout>

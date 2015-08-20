@@ -19,21 +19,12 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.google.api.client.util.DateTime;
-import com.sergio.example.owngcm.BaseActivity;
 import com.sergio.example.owngcm.R;
-import com.sergio.example.owngcm.model.DecoratedConference;
 import com.sergio.example.owngcm.navdrawer.ui.DetailActivity;
 import com.sergio.example.owngcm.navdrawer.widget.CursorRecyclerViewAdapter;
 import com.sergio.example.owngcm.provider.RouteContract;
-import com.sergio.example.owngcm.sync.RegisterConferenceLoader;
 import com.sergio.example.owngcm.sync.SyncAdapter;
-import com.sergio.example.owngcm.utils.StringUtils;
 import com.sergio.example.owngcm.utils.UIUtils;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
 
 import static com.sergio.example.owngcm.utils.LogUtils.makeLogTag;
 
@@ -91,8 +82,8 @@ public class ForecastAdapter extends CursorRecyclerViewAdapter<ForecastAdapter.V
             super(view);
             cardView = (CardView)view.findViewById(R.id.cardView);
             photoRouteCover = (ImageView) cardView.findViewById(R.id.imageRouteCover);
-            titleView = (TextView)cardView.findViewById(R.id.textViewTitleView);
-            descriptionView = (TextView)cardView.findViewById(R.id.descriptionView);
+            titleView = (TextView)cardView.findViewById(R.id.textChatName);
+            descriptionView = (TextView)cardView.findViewById(R.id.textDescription);
             cityAndDateView = (TextView)cardView.findViewById(R.id.cityAndDateView);
             registerIconView = (ImageView)cardView.findViewById(R.id.imageViewRegisteredIcon);
             registerCheckView = (ImageView)cardView.findViewById(R.id.imageViewRegistered);

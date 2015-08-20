@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="5dp"
+    android:paddingStart="8dp"
+    android:paddingLeft="8dp"
+    android:paddingRight="16dp"
+    android:paddingEnd="16dp"
+    android:paddingTop="5dp"
+    android:background="@drawable/touch_selector">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/cardViewCreateChat"
+        style="@style/CardView.Dark">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="5dp"
+            android:paddingStart="8dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="16dp"
+            android:paddingEnd="16dp"
+            android:paddingTop="5dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="sergio.lucas.lopez"
+                android:id="@+id/textViewOraganizerName"
+                style="?android:textAppearanceSmall"
+                android:ellipsize="end"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <ImageView
+                android:id="@+id/createViewCover"
+                android:layout_width="@dimen/image_size"
+                android:layout_height="wrap_content"
+                android:src="@drawable/empty_photo"
+                android:scaleType="centerCrop"
+                android:layout_below="@+id/textViewOraganizerName"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+            <RelativeLayout
+                android:layout_width="@dimen/image_size"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/createViewCover"
+                android:gravity="right"
+                android:padding="@dimen/tiny_margin"
+                android:id="@+id/relativeLayout">
+
+            </RelativeLayout>
+
+
+            <EditText
+                android:id="@+id/createChatName"
+                android:hint="@string/editextview_name_chat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/small_margin"
+                android:maxLines="2"
+                android:ellipsize="end"
+                android:layout_alignTop="@id/createViewCover"
+                android:layout_toRightOf="@id/createViewCover"
+                android:layout_toEndOf="@id/createViewCover"
+                android:inputType="textPersonName" />
+
+            <EditText
+                android:id="@+id/createDescription"
+                android:hint="@string/editextview_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/small_margin"
+                android:maxLines="4"
+                android:ellipsize="end"
+                android:layout_toRightOf="@id/createViewCover"
+                android:layout_toEndOf="@id/createViewCover"
+                android:layout_below="@id/createChatName" />
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/buttonDeletePhoto"
+                android:src="@drawable/ic_delete_black_24dp"
+                android:layout_alignTop="@+id/createTakePicture"
+                android:layout_alignRight="@id/createViewCover"
+                android:layout_alignEnd="@id/createViewCover" />
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/createTakePicture"
+                android:src="@drawable/ic_photo_camera_black_24dp"
+                android:layout_above="@id/relativeLayout"
+                android:layout_toLeftOf="@id/buttonDeletePhoto"
+                android:layout_toStartOf="@id/buttonDeletePhoto" />
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/buttonChooseImage"
+                android:src="@drawable/ic_photo_library_black_24dp"
+                android:layout_alignTop="@id/createTakePicture"
+                android:layout_toRightOf="@id/createTakePicture"
+                android:layout_toEndOf="@id/createTakePicture" />
+
+            <EditText
+                android:id="@+id/createCity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textSize="12sp"
+                android:gravity="end"
+                android:hint="@string/editextview_location"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_toRightOf="@id/relativeLayout"
+                android:layout_toEndOf="@id/relativeLayout" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="@string/textview_topic"
+                android:id="@+id/textView3"
+                android:layout_below="@id/relativeLayout"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/createTopics"
+                android:layout_below="@id/textView3"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:spinnerMode="dialog" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/textview_maxattendes"
+                android:id="@+id/textView4"
+                android:layout_below="@id/createTopics"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="26dp" />
+
+            <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/createMaxAttendes"
+                android:layout_below="@id/textView4"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:spinnerMode="dialog" />
+
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/progressBar"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+</RelativeLayout>

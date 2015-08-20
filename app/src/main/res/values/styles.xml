@@ -2,24 +2,26 @@
     <attr format="reference" name="cardStyle"/>
 
     <!-- Base application theme. ((AppCompatActivity)) -->
-    <style name="AppThemeActionBar" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppThemeDarkActionBar" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">#9c27b0</item>
         <item name="colorPrimaryDark">#558b2f</item>
-        <item name="colorAccent">#FFFFFF</item>
+        <item name="colorAccent">#9c27b0</item>
     </style>
 
-    <!-- Accounts -->
-    <style name="AccountsDark" parent="MaterialNavigationDrawerTheme">
-        <item name="colorPrimary">#8bc34a</item>
+    <style name="AppThemeNoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">#9c27b0</item>
         <item name="colorPrimaryDark">#558b2f</item>
         <item name="colorAccent">#9c27b0</item>
         <item name="cardStyle">@style/CardView.Dark</item>
     </style>
 
-    <!-- Cardviews -->
-    <style name="CardviewDark" parent="Theme.AppCompat.NoActionBar">
-        <item name="cardStyle">@style/CardView.Dark</item>
+    <!-- Accounts -->
+    <style name="AccountsDark" parent="MaterialNavigationDrawerTheme">
+        <item name="colorPrimary">#9c27b0</item>
+        <item name="colorPrimaryDark">#558b2f</item>
+        <item name="colorAccent">#9c27b0</item>
     </style>
 
     <!-- Product Tour -->

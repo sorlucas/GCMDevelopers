@@ -4,4 +4,5 @@
         <attr name="internalPadding" format="dimension" />
         <attr name="contentTopClearance" format="dimension" />
     </declare-styleable>
+
 </resources>

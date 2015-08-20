@@ -98,4 +98,24 @@
         <item>Neptune</item>
         <item>Tutorias</item>
     </string-array>
+
+    <!-- Spinners MaxAttendes Chats -->
+    <string-array name="maxattendes_spinner">
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+    </string-array>
+
+    <!-- TextView's create Route -->
+    <string name="textView_name_Chat">Nombre Chat: </string>
+    <string name="editextView_hint_name_chat"> * Requerido * </string>
+    <string name="textView_description">Descripción: </string>
+    <string name="textView_topic">Tema: </string>
+    <string name="textView_location">Localización: </string>
+    <string name="textView_maxattendes">Participantes: </string>
 </resources>

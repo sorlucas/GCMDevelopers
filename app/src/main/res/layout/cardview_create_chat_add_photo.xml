@@ -4,54 +4,58 @@
     android:layout_height="wrap_content"
     android:background="@drawable/image_border">
 
-    <TableLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/cardview_light_background">
+        android:layout_height="match_parent">
 
-        <TableRow
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="40dp"
+            android:layout_height="40dp" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Choose Image"
+            android:id="@+id/buttonChooseImage"
+            android:layout_toLeftOf="@+id/buttonTakePicture"
+            android:layout_toStartOf="@+id/buttonTakePicture"
+            android:layout_alignBottom="@+id/imageViewCover"
+            android:layout_alignTop="@+id/imageButton" />
+
+        <ImageView
+            android:id="@+id/imageViewCover"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <ProgressBar
-                android:id="@+id/progressBar"
-                style="?android:attr/progressBarStyleLarge"
-                android:layout_width="40dp"
-                android:layout_height="40dp" />
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Take Picture"
-                android:id="@+id/buttonTakePicture" />
+            android:layout_height="wrap_content"
+            android:background="@drawable/image_border"
+            android:padding="10dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_photo_library_white_24dp"
+            android:minHeight="100dp"
+            android:maxWidth="150dp"
+            android:layout_span="4"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Choose Image"
-                android:id="@+id/buttonChooseImage" />
-
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/imageButton"
-                android:src="@drawable/ic_delete_black_24dp" />
-        </TableRow>
-        <TableRow>
-            <ImageView
-                android:id="@+id/imageViewCover"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/image_border"
-                android:padding="10dp"
-                android:scaleType="fitCenter"
-                android:src="@drawable/ic_photo_library_white_24dp"
-                android:minHeight="100dp"
-                android:maxWidth="150dp"
-                android:layout_span="4"/>
-        </TableRow>
-
-
-    </TableLayout>
-
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Take Picture"
+            android:id="@+id/buttonTakePicture"
+            android:layout_alignBottom="@+id/imageViewCover"
+            android:layout_toLeftOf="@+id/imageButton"
+            android:layout_toStartOf="@+id/imageButton"
+            android:layout_alignTop="@+id/imageButton" />
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageButton"
+            android:src="@drawable/ic_delete_black_24dp"
+            android:layout_alignBottom="@+id/imageViewCover"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+    </RelativeLayout>
 
 
 

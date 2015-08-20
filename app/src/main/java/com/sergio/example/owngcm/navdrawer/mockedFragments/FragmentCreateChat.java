@@ -52,7 +52,7 @@ public class FragmentCreateChat extends Fragment implements
     private EditText mDescription;
     private String mTopics;
     private EditText mCity;
-    private EditText mMaxAttendes;
+    private String mMaxAttendes;
 
     //Delarate Views to catch photo route
     private ImageView imageViewThumbnail;
@@ -76,11 +76,10 @@ public class FragmentCreateChat extends Fragment implements
         mChatName = (EditText) mRoot.findViewById(R.id.editTextChatName);
         mDescription = (EditText) mRoot.findViewById(R.id.editTextDescription);
         mCity = (EditText) mRoot.findViewById(R.id.editTextCity);
-        mMaxAttendes = (EditText) mRoot.findViewById(R.id.editTextMaxAttendes);
 
-        //Create an display Spinner
-        Spinner spinner = (Spinner) mRoot.findViewById(R.id.spinnerTopics);
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        //Create an display Spinner Topics
+        Spinner spinnerTopic = (Spinner) mRoot.findViewById(R.id.spinnerTopics);
+        spinnerTopic.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 mTopics = (String) parent.getItemAtPosition(position);
@@ -92,10 +91,29 @@ public class FragmentCreateChat extends Fragment implements
 
             }
         });
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(),
+        ArrayAdapter<CharSequence> adapterTopic = ArrayAdapter.createFromResource(getActivity(),
                 R.array.topic_spinner, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
+        adapterTopic.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerTopic.setAdapter(adapterTopic);
+
+        // Create an display Spinner MaxAttendes
+        Spinner spinnerMaxAttendes = (Spinner) mRoot.findViewById(R.id.spinnerMaxAttendes);
+        spinnerMaxAttendes.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                mMaxAttendes = (String) parent.getItemAtPosition(position);
+                LOGD(TAG, "MaxAttendes selected in spinner" + mMaxAttendes);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        ArrayAdapter<CharSequence> adapterMaxAttendes = ArrayAdapter.createFromResource(getActivity(),
+                R.array.maxattendes_spinner, android.R.layout.simple_spinner_item);
+        adapterMaxAttendes.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerMaxAttendes.setAdapter(adapterMaxAttendes);
 
         // Photos
         Button buttonTakePicture = (Button) mRoot.findViewById(R.id.buttonTakePicture);
@@ -169,7 +187,7 @@ public class FragmentCreateChat extends Fragment implements
         intent.putExtra(RouteContract.RouteEntry.COLUMN_DESCRIPTION, mDescription.getText().toString());
         intent.putExtra(RouteContract.RouteEntry.COLUMN_TOPICS, mTopics);
         intent.putExtra(RouteContract.RouteEntry.COLUMN_CITY_NAME_INIT, mCity.getText().toString());
-        intent.putExtra(RouteContract.RouteEntry.COLUMN_MAX_ATTENDEES, mMaxAttendes.getText().toString());
+        intent.putExtra(RouteContract.RouteEntry.COLUMN_MAX_ATTENDEES, mMaxAttendes);
         intent.putExtra(RouteContract.RouteEntry.COLUMN_URL_CHAT_COVER, urlPhotoPath);
         getActivity().startService(intent);
 

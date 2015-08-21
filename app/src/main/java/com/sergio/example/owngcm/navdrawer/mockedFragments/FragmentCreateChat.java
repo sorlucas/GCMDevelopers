@@ -23,6 +23,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.api.client.util.DateTime;
 import com.kbeanie.imagechooser.api.ChooserType;
 import com.kbeanie.imagechooser.api.ChosenImage;
 import com.kbeanie.imagechooser.api.ImageChooserListener;
@@ -31,11 +32,10 @@ import com.sergio.example.owngcm.BaseActivity;
 import com.sergio.example.owngcm.R;
 import com.sergio.example.owngcm.provider.RouteContract;
 import com.sergio.example.owngcm.service.UploadRouteService;
-
+import com.sergio.example.owngcm.utils.AccountUtils;
 import com.sergio.example.owngcm.utils.UIUtils;
 
 import java.io.File;
-import java.util.SimpleTimeZone;
 
 import it.neokree.materialnavigationdrawer.elements.MaterialSection;
 
@@ -68,6 +68,16 @@ public class FragmentCreateChat extends Fragment implements
     //Declare buttons
     private FloatingActionButton mButtonCreate;
     private FloatingActionButton mButtonCancel;
+
+    public static void hideSoftKeyboard(Activity activity, View view, Boolean isHidden) {
+        InputMethodManager inputMethodManager = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        if (isHidden) {
+            inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        } else {
+            inputMethodManager.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT);
+        }
+        view.requestFocus();
+    }
 
     // FUNCTION HIDDEN FLOATINGBUTTON WITH OPEN Keyboard
     private void setupUI(final View view) {
@@ -107,22 +117,19 @@ public class FragmentCreateChat extends Fragment implements
         }
     }
 
-    public static void hideSoftKeyboard(Activity activity,View view, Boolean isHidden) {
-        InputMethodManager inputMethodManager = (InputMethodManager)  activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
-        if (isHidden) {
-            inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-        } else {
-            inputMethodManager.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT);
-        }
-        view.requestFocus();
-    }
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-
         mRoot = (ViewGroup) inflater.inflate(R.layout.fragment_create_chat, container, false);
+
+        // Put current user name.
+        TextView nameOrganizer = (TextView) mRoot.findViewById(R.id.createViewOrganizerName);
+        nameOrganizer.setText(AccountUtils.getPlusName(getActivity()));
+
+        // Put actual Time
+        TextView dateCreated = (TextView) mRoot.findViewById(R.id.createViewDate);
+        dateCreated.setText(UIUtils.getConferenceDate(getActivity(), new DateTime(System.currentTimeMillis()).getValue()));
 
         mChatName = (EditText) mRoot.findViewById(R.id.createChatName);
         mDescription = (EditText) mRoot.findViewById(R.id.createDescription);
@@ -311,7 +318,7 @@ public class FragmentCreateChat extends Fragment implements
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == getActivity().RESULT_OK
+        if (resultCode == Activity.RESULT_OK
                 && (requestCode == ChooserType.REQUEST_PICK_PICTURE
                 || requestCode == ChooserType.REQUEST_CAPTURE_PICTURE)) {
             if (imageChooserManager == null) {
